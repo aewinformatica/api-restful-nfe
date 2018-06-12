@@ -2,7 +2,8 @@ module.exports = {
     build,
     processar,
     totalPorArquivo,
-    buildTran
+    buildTran,
+    processarTran
 };
 
 //Função que monsta o array de objetos contendo cada NFe
@@ -43,8 +44,11 @@ async function buildTran(file, nfe) {
         objAux.chave = content[index].match(/(:.\d+)/) ? content[index].match(/(:.\d+)/)[0].replace(': ', '') : null;
         objAux.orgao = content[index].match(/(SEFAZ-[A-Z].)/) ? content[index].match(/(SEFAZ-[A-Z].)/)[0] : null;
         objAux.erro = content[index].match(/(rejeitou)/) ? content[index].match(/(rejeitou)/)[0] : null;
+        objAux.motivo = content[index].match(/(Motivo: \d+)/) ? content[index].match(/(Motivo: \d+)/)[0].split(' ')[1] : null;
         data.push(JSON.parse(JSON.stringify(objAux)))
     });
+
+    if (!nfe) return data;
 
     nfe.forEach(item => {
         item.transacoes = data.filter(item2 => item2.chave === item.Chave);
@@ -105,4 +109,52 @@ async function totalPorArquivo(params) {
     content.valorIPI = content.valorIPI.toFixed(2);
 
     return content
+}
+
+async function processarTran(data) {
+    let response = {
+        erros: {
+            total: 0
+        },
+        sucesso: 0
+    };
+
+    console.log(data);
+
+    data.forEach((item, index) => {
+        if (item.erro) {
+            response.erros.total++;
+
+            if (response.erros[item.erro]) {
+
+                response.erros[item.erro].ocorrencias ? response.erros[item.erro].ocorrencias++ : response.erros[item.erro].ocorrencias = 1;
+
+                let index = response.erros[item.erro].motivos.findIndex((item2, index, array) => {
+                    return item.motivo === item2.motivo
+                });
+
+                if (index !== -1) {
+                    response.erros[item.erro].motivos[index].quantidade++
+                } else {
+                    response.erros[item.erro].motivos.push({
+                        motivo: item.motivo,
+                        quantidade: 1
+                    })
+                }
+            } else {
+
+                response.erros[item.erro] = {
+                    ocorrencias: 1,
+                    motivos: [{
+                        motivo: item.motivo,
+                        quantidade: 1
+                    }]
+                }
+            }
+        } else {
+            response.sucesso++;
+        }
+    });
+
+    return response
 }
