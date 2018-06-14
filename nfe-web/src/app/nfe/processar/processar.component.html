@@ -1,0 +1,115 @@
+<section class="ui-s840">
+  <div class="card">
+
+    <ui-card>
+
+      <div class="ui-progress accent" *ngIf="loading">
+        <div class="indeterminate"></div>
+      </div>
+
+      <ui-toolbar class="flat">
+        <button class="ui-button flat icon" uiRipple routerLink="..">
+          <i class="material-icons">arrow_back</i>
+        </button>
+        <span class="title">Processar arquivos</span>
+        <div class="align-right">
+        </div>
+      </ui-toolbar>
+
+      <ui-card-content>
+
+        <form #newTask="ngForm" class="ui-validate on-dirty on-submit" #form>
+
+          <ui-chips>
+            <div *ngFor="let selectedChip of selectedChips" class="ui-chip">
+              {{selectedChip}}
+              <div class="close ripple-rounded" uiRipple (click)="removeChip(selectedChip)"><i class="material-icons">add_circle</i></div></div>
+            <ui-input-container>
+              <input type="text"
+                     name="status"
+                     [(ngModel)]="chips.searchState"
+                     uiInput
+                     uiAutocomplete
+                     (input)="loadChips()"
+                     (focus)="loadChips()"
+                     [list]="chips"
+                     [primary]="'name'"
+                     [loading]="chips.loading"
+                     [select]="chipSelect.bind(this)"
+              readonly>
+              <label>Status</label>
+            </ui-input-container>
+          </ui-chips>
+
+          <ui-input-container>
+            <input type="text" [(ngModel)]="chave" name="validation" uiInput #fieldDescription="ngModel"
+                   uiMaxlength="100">
+            <label>Chave</label>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input type="text" [(ngModel)]="docDestinatario" name="validation" uiInput #fieldDescription="ngModel"
+                   uiMaxlength="100">
+            <label>Documento destinatário</label>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input type="text" uiInput [(ngModel)]="periodo" name="date" [uiDatePicker]="'simple' + 1" uiMaskDate [maxDate]="minAndMax" #date="ngModel">
+            <label>Período</label>
+            <div class="icon">
+              <button class="ui-button icon flat" [uiDatePickerCaller]="'simple' + 1">
+                <i class="material-icons">today</i>
+              </button>
+            </div>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input type="text" [(ngModel)]="tipoDoc" name="validation" uiInput #fieldDescription="ngModel"
+                   uiMaxlength="100">
+            <label>Tipo de documento</label>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input type="file"
+                   name="upload"
+                   class="ui-input-file-hidden"
+                   id="upload"
+                   uiInputFile
+                   [(ngModel)]="file"
+                   #input
+                   [read]="readNfe.bind(this)"
+                   [fileChange]="changeFile.bind(this)"
+                   [error]="error.bind(this)"
+                   #validationFile="ngModel">
+            <button class="ui-button primary" id="uploadNFe" uiRipple required (click)="upload(input)">Upload Arquivo NF-e</button>
+            <span> {{input.value ? input.files[0].name : null}} </span>
+          </ui-input-container>
+
+          <ui-input-container *ngIf="input.value">
+            <input type="file"
+                   name="uploadTran"
+                   class="ui-input-file-hidden"
+                   id="uploadTran"
+                   uiInputFile
+                   [(ngModel)]="fileTran"
+                   #inputTran
+                   [read]="readNfeTran.bind(this)"
+                   [fileChange]="changeFile.bind(this)"
+                   [error]="error.bind(this)"
+                   #validationFile="ngModel">
+            <button class="ui-button primary" id="uploadNFeTran" uiRipple required (click)="upload(inputTran)">Upload Arquivo NF-e Transações</button>
+            <span> {{inputTran.value ? inputTran.files[0].name : null}} </span>
+          </ui-input-container>
+
+        </form>
+      </ui-card-content>
+
+      <div class="ui-fab-container">
+        <button class="ui-button success fab" uiRipple (click)="request()">
+          <i class="material-icons">check</i>
+        </button>
+      </div>
+    </ui-card>
+
+  </div>
+</section>

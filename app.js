@@ -19,8 +19,8 @@ let allowCors = function (req, res, next) {
 };
 
 app.use(allowCors);
-app.use(body.json({limit: '30mb'}));
-app.use(body.urlencoded({limit: '30mb', extended: true}));
+app.use(body.json({limit: '100mb'}));
+app.use(body.urlencoded({limit: '100mb', extended: true}));
 
 app.use(express.static(require('path').join(__dirname, '/src/files')));
 

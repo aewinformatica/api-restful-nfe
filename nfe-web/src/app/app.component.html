@@ -1,0 +1,31 @@
+<ui-toolbar class="fixed flat elevate-on-scroll primary elevate-on-s960" id="app-header">
+  <button (click)="menuOpen = true" class="ui-button flat icon" uiRipple>
+    <i class="material-icons">menu</i>
+  </button>
+  <span class="title">{{title}}</span>
+  <div class="align-right">
+  </div>
+</ui-toolbar>
+
+<ui-nav-drawer [(open)]="menuOpen">
+  <ui-toolbar class="flat">
+    <button (click)="menuOpen = false" class="ui-button flat icon" uiRipple>
+      <i class="material-icons">arrow_back</i>
+    </button>
+    <!--<div class="logo">-->
+    <!--<img src="assets/images/logotipo-menu.png" alt="Cronos logo" title="Cronos logo">-->
+    <!--</div>-->
+  </ui-toolbar>
+  <div class="ui-nav-drawer-overflow">
+    <div class="ui-list">
+      <a class="ui-list-item" uiRipple routerLink="">Home</a>
+      <a class="ui-list-item" uiRipple routerLink="nfe">NF-e</a>
+      <a class="ui-list-item" uiRipple routerLink="transacao">Transações</a>
+    </div>
+  </div>
+</ui-nav-drawer>
+
+<router-outlet></router-outlet>
+<!--<app-login></app-login>-->
+<!--<app-main></app-main>-->
+<ui-snackbar-container></ui-snackbar-container>

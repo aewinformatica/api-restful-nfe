@@ -15,7 +15,7 @@ async function processar(req, res) {
         tipoDocumento: req.body.tipoDocumento,
         chave: req.body.chave,
         documentoDestinatario: req.body.documentoDestinatario,
-        status: req.body.status
+        status: req.body.status[0] ? req.body.status : null
     };
 
     try {

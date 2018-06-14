@@ -1,0 +1,128 @@
+<section class="ui-s1600">
+  <div class="card">
+    <ui-card>
+
+      <ui-toolbar class="flat">
+        <span class="title">NF-e</span>
+      </ui-toolbar>
+
+      <ui-dialog #dialogDetalhes card-size="600">
+        <ui-card-title>Transações</ui-card-title>
+        <ui-card-content>
+          <ui-data-table>
+            <tbody>
+            <tr>
+              <th>
+                Orgão
+              </th>
+              <th>
+                Erro
+              </th>
+              <th>
+                Motivo
+              </th>
+            </tr>
+            <tr *ngIf="!lista || !lista.length">
+              <td colspan="3" class="mensagemListaVazia">
+                Não foi encontrado nenhuma transação cadastrada!
+              </td>
+            </tr>
+            <tr *ngFor="let item of detalhes" [uiDialogTrigger]="dialogDetalhes">
+              <td>{{item.orgao}}</td>
+              <td>{{item.erro || '-'}}</td>
+              <td>{{item.motivo || '-'}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4" class="align-right">
+
+              </td>
+            </tr>
+            </tfoot>
+          </ui-data-table>
+        </ui-card-content>
+        <div class="ui-button-container cover">
+          <button class="ui-button raised primary" uiRipple (click)="dialogDetalhes.close()">Fechar</button>
+        </div>
+      </ui-dialog>
+
+      <ui-data-table>
+        <tbody>
+        <tr>
+          <th>
+            Data
+          </th>
+          <th>
+            Tipo
+          </th>
+          <th>
+            CNPJ/CPF
+          </th>
+          <th>
+            Número
+          </th>
+          <th>
+            Série
+          </th>
+          <th>
+            Modelo
+          </th>
+          <th>
+            Chave
+          </th>
+          <th>
+            Valor total
+          </th>
+          <th>
+            Valor prod
+          </th>
+          <th>
+            Valor ICMS
+          </th>
+          <th>
+            Valor IPI
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+        <tr *ngIf="!lista || !lista.length">
+          <td colspan="12" class="mensagemListaVazia">
+            Não foi encontrado nenhuma NF-e cadastrada!
+          </td>
+        </tr>
+        <tr *ngFor="let item of lista" [uiDialogTrigger]="dialogDetalhes" (click)="show(item)">
+          <td>{{item.Data}}</td>
+          <td>{{item.Tipo}}</td>
+          <td>{{item.CnpjCpf}}</td>
+          <td>{{item.Numero}}</td>
+          <td>{{item.Serie}}</td>
+          <td>{{item.Modelo}}</td>
+          <td>{{item.Chave}}</td>
+          <td>R$ {{item.ValorTotal | uiCurrency}}</td>
+          <td>R$ {{item.ValorProd | uiCurrency}}</td>
+          <td>R$ {{item.ValorICMS | uiCurrency}}</td>
+          <td>R$ {{item.ValorIPI | uiCurrency}}</td>
+          <td>{{item.Status}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="4" class="align-right">
+
+          </td>
+        </tr>
+        </tfoot>
+      </ui-data-table>
+
+    </ui-card>
+
+    <div class="ui-fab-container">
+      <button class="ui-button success fab" uiRipple routerLink="..">
+        <i class="material-icons">cloud_upload</i>
+      </button>
+    </div>
+
+  </div>
+</section>

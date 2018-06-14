@@ -1,0 +1,30 @@
+@import '~ng-smn-ui/lib/core/variables';
+:host {
+  ui-card {
+    position: relative;
+    z-index: 2;
+    ///deep/ header {
+    //    background-color: ui-color('white');
+    //    color: ui-text-color('white');
+    //}
+    margin-bottom: 20px;
+
+    input[name='upload'] {
+      display: flex;
+      justify-content: flex-start;
+      color: #000;
+    }
+  }
+
+  ui-toolbar {
+    .title {
+      transition: opacity 280ms ui-easing('deceleration'),
+      transform 280ms ui-easing('deceleration');
+
+      &.hide {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+  }
+}

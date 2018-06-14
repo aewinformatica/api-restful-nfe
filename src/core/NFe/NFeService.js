@@ -8,7 +8,7 @@ module.exports = {
 
 //Função que monsta o array de objetos contendo cada NFe
 async function build(file) {
-    let fileTxt = Buffer.from(file, 'base64').toString();
+    let fileTxt = Buffer.from(file, 'base64').toString('utf8');
 
     let content = [];
     let obj = {};
