@@ -1,0 +1,112 @@
+<section class="ui-s840">
+  <div class="card">
+
+    <ui-card class="elevate-on-toolbar">
+
+      <div class="ui-progress accent" *ngIf="loading">
+        <div class="indeterminate"></div>
+      </div>
+
+      <ui-toolbar class="flat">
+        <button class="ui-button flat icon" uiRipple routerLink="/">
+          <i class="material-icons">arrow_back</i>
+        </button>
+        <span class="title">Processar arquivos</span>
+        <div class="align-right">
+        </div>
+      </ui-toolbar>
+
+      <ui-card-content>
+
+        <form #newTask="ngForm" class="ui-validate on-dirty on-submit" #form>
+
+          <ui-data-table *ngIf="chaves">
+            <tbody>
+            <tr>
+              <th>
+                Erro
+              </th>
+              <th>
+                Motivo
+              </th>
+              <th>
+                Quantidade
+              </th>
+            </tr>
+            <tr *ngIf="!chaves.erros || !chaves.erros.length">
+              <td colspan="2" class="mensagemListaVazia">
+                Não foi encontrado nenhum erro!
+              </td>
+            </tr>
+            <tr *ngFor="let item of chaves.erros">
+              <td><span style="text-transform: capitalize">{{item.erro}}</span></td>
+              <td>{{item.motivo}}</td>
+              <td>{{item.quantidade}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="2" class="align-left">
+                Sucesso: {{chaves.sucesso}}
+              </td>
+            </tr>
+            </tfoot>
+          </ui-data-table>
+
+          <!--<li *ngFor="let item of chave | keys">-->
+            <!--<ul>-->
+              <!--<li *ngFor="let erro of ((item.value === 'object') ? item.value : [])">-->
+                <!--{{erro}}-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</li>-->
+
+
+          <!--<ul class="ui-list">-->
+            <!--<li *ngFor="let item of chaves.erros | keys" class="ui-list-item">-->
+              <!--{{item.key}}-->
+              <!--<ul class="ui-list">-->
+                <!--<li *ngFor="let chave of item.value | keys" class="ui-list-item">-->
+                  <!--{{chave.key}}-->
+                  <!--<ul class="ui-list">-->
+                    <!--<li *ngFor="let motivo of chave.value" class="ui-list-item">-->
+                      <!--{{motivo.motivo}}-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</li>-->
+
+          <!--</ul>-->
+
+
+          <ui-input-container style="text-align: center" *ngIf="!chaves">
+            <input type="file"
+                   name="uploadTran"
+                   class="ui-input-file-hidden"
+                   id="uploadTran"
+                   uiInputFile
+                   [(ngModel)]="fileTran"
+                   #inputTran
+                   [read]="readNfeTran.bind(this)"
+                   [fileChange]="changeFile.bind(this)"
+                   [error]="error.bind(this)"
+                   #validationFile="ngModel">
+            <button class="ui-button primary" id="uploadNFeTran" uiRipple required (click)="upload(inputTran)">Upload
+              Arquivo NF-e Transações
+            </button>
+            <span> {{inputTran.value ? inputTran.files[0].name : null}} </span>
+          </ui-input-container>
+
+        </form>
+      </ui-card-content>
+
+      <div class="ui-fab-container">
+        <button class="ui-button success fab" uiRipple (click)="request()">
+          <i class="material-icons">check</i>
+        </button>
+      </div>
+    </ui-card>
+
+  </div>
+</section>

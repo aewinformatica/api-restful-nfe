@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, ElementRef, OnInit, OnDestroy, AfterViewIn
 import {UiToolbarService} from "ng-smn-ui";
 import {Title} from "@angular/platform-browser";
 import {NfeService} from "../nfe.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-listar-nfe',
@@ -17,8 +16,7 @@ export class ListarNfeComponent implements OnInit, OnDestroy, AfterViewInit {
               private element: ElementRef,
               private toolbarService: UiToolbarService,
               private changeDetectorRef: ChangeDetectorRef,
-              private nfeService: NfeService,
-              private router: Router) {
+              private nfeService: NfeService) {
   }
 
   ngOnInit() {

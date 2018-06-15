@@ -113,43 +113,38 @@ async function totalPorArquivo(params) {
 
 async function processarTran(data) {
     let response = {
-        erros: {
-            total: 0
-        },
+        erros: [],
         sucesso: 0
     };
-
-    console.log(data);
 
     data.forEach((item, index) => {
         if (item.erro) {
             response.erros.total++;
 
-            if (response.erros[item.erro]) {
+            if (response.erros) {
 
-                response.erros[item.erro].ocorrencias ? response.erros[item.erro].ocorrencias++ : response.erros[item.erro].ocorrencias = 1;
-
-                let index = response.erros[item.erro].motivos.findIndex((item2, index, array) => {
+                let index = response.erros.findIndex((item2, index, array) => {
                     return item.motivo === item2.motivo
                 });
 
                 if (index !== -1) {
-                    response.erros[item.erro].motivos[index].quantidade++
+                    response.erros[index].quantidade++
                 } else {
-                    response.erros[item.erro].motivos.push({
+                    response.erros.push({
+                        erro: item.erro,
                         motivo: item.motivo,
                         quantidade: 1
                     })
                 }
             } else {
 
-                response.erros[item.erro] = {
-                    ocorrencias: 1,
-                    motivos: [{
+                response.erros = [
+                    {
+                        erro: item.erro,
                         motivo: item.motivo,
                         quantidade: 1
-                    }]
-                }
+                    }
+                ]
             }
         } else {
             response.sucesso++;

@@ -76,10 +76,6 @@ export class ProcessarComponent implements OnInit, OnDestroy, AfterViewInit {
     this.toolbarService.deactivateExtendedToolbar();
   }
 
-  upload(input) {
-    input.click();
-  }
-
   readNfe(file, item, index) {
     this.fileNfe = item.replace('data:text/plain;base64,', '');
   }
@@ -94,6 +90,10 @@ export class ProcessarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   error(file, errors, index) {
     console.log(file, errors, index)
+  }
+
+  upload(input) {
+    input.click();
   }
 
   request() {
