@@ -1,6 +1,7 @@
 const scope = require('./NFeScope');
 const service = require('./NFeService');
 
+//Aqui é exportado as funções desse arquivo para outros conseguirem acessar
 module.exports = {
     processar,
     totalPorArquivo,
@@ -8,6 +9,7 @@ module.exports = {
 };
 
 async function processar(req, res) {
+    //Nesse objeto é guardado todos os parametros passados na requisição, para não ter que espalhar um objeto tao grande como o "req".
     const params = {
         file: req.body.file,
         fileTran: req.body.fileTran,

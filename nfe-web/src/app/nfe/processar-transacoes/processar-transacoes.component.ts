@@ -60,9 +60,7 @@ export class ProcessarTransacoesComponent implements OnInit, OnDestroy, AfterVie
         "file": this.fileNfeTran
       })
       .subscribe((res) => {
-      console.log(res);
         this.chaves = res.content
-        // this.router.navigate(['/transacao/listagem']);
       }, err => {
         console.log(err);
         this.loading = false;

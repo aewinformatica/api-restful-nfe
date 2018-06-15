@@ -6,7 +6,7 @@ module.exports = {
     processarTran
 };
 
-//Função que monsta o array de objetos contendo cada NFe
+//Função que monta o array de objetos contendo cada NFe
 async function build(file) {
     let fileTxt = Buffer.from(file, 'base64').toString('utf8');
 
@@ -32,6 +32,7 @@ async function build(file) {
     return content
 }
 
+//Função que monta o array de objetos contendo cada transação
 async function buildTran(file, nfe) {
     let fileTxt = Buffer.from(file, 'base64').toString();
 
